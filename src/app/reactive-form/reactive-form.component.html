@@ -1,0 +1,54 @@
+<div class="page-area">
+    <h2 class="text-center" style="margin-top:4rem">Reactive-Form</h2>
+    <div class="row justify-content-center" style="margin-top:2rem;">
+        <div class="col-md-6 text-left bg-white rounded shadow py-3">
+            <form (ngSubmit)="onSubmit(myForm)" #myForm="ngForm">
+                <div ngModelGroup="userDetails" #userDetails="ngModelGroup">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">UserId</label>
+                        <input type="text" class="form-control" id="username" name="name"
+                            placeholder="Enter userID" [(ngModel)]="userName" required>
+                            <button type="button" class="btn btn-primary" (click)="onClick()">Primary</button>
+                            <!-- <small *ngIf="userName">userId is:{{userName}}</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Email</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                        placeholder="Enter email" [ngModel]="deaultEmail" required email #email="ngModel">
+                        <small class="text-danger"
+                        *ngIf="!email.valid && email.touched">Enter valid email</small>
+                    </div>
+                    <span class="text-danger"  *ngIf="!userDetails.valid && userDetails.touched">user details invalid</span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">select course</label>
+                    <select class="form-control" name="course" id="exampleFormControlSelect1" [ngModel]="defaultCourse">
+                      <option>Angular</option>
+                      <option>React JS</option>
+                      <option>Vue JS</option>
+                      <option>Asp.net</option>
+                      <option>Bootstrap</option>
+                    </select>
+                  </div>
+                <div class="form-group">
+                    <div class="custom-control custom-radio" *ngFor="let gender of Genders">
+                        <input type="radio" id="{{gender.id}}" name="Genders"
+                        class="custom-control-input" [ngModel]="defaultGender" value="{{gender.value}}">
+                        <label class="custom-control-label" for="{{gender.id}}">{{gender.value}}</label>
+                      </div>
+                </div>
+                <button [disabled]="!myForm.valid" type="submit" class="btn btn-primary btn btn-success">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-2" *ngIf="submitted">
+        <div class="col-md-6 text-left bg-white rounded shadow py-3">
+            <h2>Form Data</h2>
+            <p>Name:<strong>{{formData.name}}</strong></p>
+            <p>Email:<strong>{{formData.email}}</strong></p>
+            <p>Course:<strong>{{formData.course}}</strong></p>
+            <p>Gender:<strong>{{formData.Genders}}</strong></p>
+        </div>
+    </div>
+</div>
+
